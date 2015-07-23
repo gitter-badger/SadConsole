@@ -29,6 +29,9 @@ namespace SadConsole
         [IgnoreDataMember]
         public Rectangle[] CharacterIndexRects;
 
+        [IgnoreDataMember]
+        public SpriteBatch RenderBatch;
+
         #region Constructors
         public Font() { }
 
@@ -64,8 +67,10 @@ namespace SadConsole
         /// </summary>
         public void Generate()
         {
+            RenderBatch = new SpriteBatch(Engine.Device);
+
             using (System.IO.Stream fontStream = System.IO.File.OpenRead(FilePath))
-           {
+            {
                 Image = Texture2D.FromStream(Engine.Device, fontStream);
             }
 
@@ -117,6 +122,9 @@ namespace SadConsole
             Engine.WindowHeight = manager.PreferredBackBufferHeight;
         }
 
+
+
+
         [OnDeserialized]
         private void AfterDeserialized(System.Runtime.Serialization.StreamingContext context)
         {
@@ -124,12 +132,14 @@ namespace SadConsole
 
             if (specificFont != null)
             {
+                RenderBatch = specificFont.RenderBatch;
                 Image = specificFont.Image;
                 ConfigureRects();
             }
             else
                 foreach (var font in Engine.Fonts[Name])
                 {
+                    RenderBatch = specificFont.RenderBatch;
                     Image = font.Image;
                     ConfigureRects();
                     break;
