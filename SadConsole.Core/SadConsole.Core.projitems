@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\IParentConsole.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\IRender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\LayeredConsole.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Consoles\LockedConsole.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DoubleAnimation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EasingFunctions\Bounce.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EasingFunctions\Circle.cs" />
