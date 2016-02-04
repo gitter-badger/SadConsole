@@ -13,8 +13,9 @@ namespace SadConsole.Core.Consoles
     /// </summary>
     class LockedConsole : IConsole
     {
-        private Point _cellSize;
-
+        private Point cellSize;
+        private Cell[] cellsRendered;
+        private CellSurface originalSurface;
 
         public SpriteBatch Batch { get; protected set; }
 
@@ -24,17 +25,17 @@ namespace SadConsole.Core.Consoles
 
         public bool CanUseMouse { get { return false; } set { } }
 
-        public CellSurface CellData { get { return null; } set { } }
+        public CellSurface CellData { get { return originalSurface; } set { originalSurface = value; CalculateRenderArea(); } }
 
         public Point CellSize
         {
             get
             {
-                return _cellSize;
+                return cellSize;
             }
             set
             {
-                _cellSize = value;
+                cellSize = value;
                 CalculateRenderArea();
             }
         }
@@ -54,18 +55,7 @@ namespace SadConsole.Core.Consoles
             }
         }
 
-        public bool IsFocused
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public bool IsFocused { get { return false; } set { } }
 
         public bool IsVisible
         {
@@ -145,27 +135,29 @@ namespace SadConsole.Core.Consoles
             }
         }
 
-        public SadConsole.Consoles.Console.Cursor VirtualCursor
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        public SadConsole.Consoles.Console.Cursor VirtualCursor { get { return null; } set { } }
 
-            set
-            {
-                throw new NotImplementedException();
-            }
+
+        public LockedConsole(CellSurface originalData) : this(originalData, Engine.DefaultFont) { }
+
+        public LockedConsole(CellSurface originalData, Font font)
+        {
+            // Cycle through the cell data
+            // If any cell has information on it, copy it into the list
+            //
+            Font = font;
+            cellSize = new Point(font.CellWidth, font.CellHeight);
+            CalculateRenderArea();
         }
 
         public bool ProcessKeyboard(KeyboardInfo info)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public bool ProcessMouse(MouseInfo info)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public void Render()
