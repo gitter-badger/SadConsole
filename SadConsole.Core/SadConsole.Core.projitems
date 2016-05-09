@@ -15,13 +15,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)CellSurface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColoredString.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\CellsRenderer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Consoles\ConsoleData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\Console.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\Console.Cursor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\ConsoleList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\IConsole.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\IParentConsole.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\IRender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Consoles\IRender2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consoles\LayeredConsole.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Consoles\SurfaceRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DoubleAnimation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EasingFunctions\Bounce.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EasingFunctions\Circle.cs" />

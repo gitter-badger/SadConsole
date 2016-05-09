@@ -41,6 +41,21 @@
             using (var stream = System.IO.File.OpenRead("Fonts/IBM.font"))
                 SadConsole.Engine.DefaultFont = SadConsole.Serializer.Deserialize<Font>(stream);
 
+            FontMaster masterFont;
+
+            using (var stream = System.IO.File.OpenRead("Fonts/IBM.font"))
+                masterFont = SadConsole.Serializer.Deserialize<FontMaster>(stream);
+
+            normalFont = masterFont.GetFont(1);
+            tempSurface = new SadConsole.ConsolesNS.ConsoleData(10, 10, normalFont);
+            tempSurface.DefaultBackground = Color.Gray;
+            tempSurface.DefaultForeground = ColorAnsi.Black;
+            tempSurface.Clear();
+
+            tempSurface.Print(2, 1, "Hello");
+            
+            tempRenderer = new SadConsole.ConsolesNS.SurfaceRenderer();
+
             // Using the default font, resize the window to a Width,Height of cells. This example uses the MS-DOS default of 80 columns by 25 rows.
             SadConsole.Engine.DefaultFont.ResizeGraphicsDeviceManager(_graphics, 80, 25, 0, 0);
 
@@ -56,10 +71,10 @@
             // If you want to use the custom console demo provided by this starter project, uncomment out the line below.
             SadConsole.Engine.ConsoleRenderStack = new ConsoleList() {
                                                                        new CustomConsoles.CursorConsole(),
-                                                                       new CustomConsoles.WorldGenerationConsole(),
                                                                        new CustomConsoles.StaticConsole(),
                                                                        new CustomConsoles.StretchedConsole(), 
                                                                        new CustomConsoles.BorderedConsole(80, 25), 
+                                                                       new CustomConsoles.WorldGenerationConsole(),
                                                                        new CustomConsoles.DOSConsole(),
                                                                        new CustomConsoles.WindowTestConsole(),
                                                                        new CustomConsoles.EntityAndConsole(),
@@ -80,6 +95,11 @@
             // Call the default initialize of the base class.
             base.Initialize();
         }
+
+
+        SadConsole.ConsolesNS.ConsoleData tempSurface;
+        SadConsole.ConsolesNS.SurfaceRenderer tempRenderer;
+        Font2 normalFont;
 
         protected override void Update(GameTime gameTime)
         {
@@ -118,8 +138,11 @@
             GraphicsDevice.Clear(Color.Black);
 
             // Draw the consoles to the screen.
-            SadConsole.Engine.Draw(gameTime);
-            
+            //SadConsole.Engine.Draw(gameTime);
+
+            tempRenderer.Render(new SadConsole.ConsolesNS.CellSurfaceSubset(tempSurface, new Rectangle(0, 0, tempSurface.Width, tempSurface.Height)), new Point(5,5));
+
+
             base.Draw(gameTime);
         }
     }
